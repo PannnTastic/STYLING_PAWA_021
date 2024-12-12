@@ -1,0 +1,152 @@
+<main>
+    <div class="todo-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-primary">To-Do List - <%= user %></h2>
+            
+            <!-- Tombol Tambah Todo -->
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTodoModal">
+                <i class="fas fa-plus"></i> Tambah To-Do
+            </button>
+        </div>
+
+        <!-- Daftar Todo -->
+        <div class="todo-list">
+            <% if (todo.length === 0) { %>
+                <div class="alert alert-info text-center" role="alert">
+                    Tidak ada todo. Silakan tambahkan To-Do baru!
+                </div>
+            <% } else { %>
+                <% todo.forEach(function(item) { %>
+                    <div class="todo-item <%= item.done ? 'done' : '' %>">
+                        <div>
+                            <h5 class="<%= item.done ? 'text-success' : '' %>"><%= item.judul %></h5>
+                            <p class="text-muted mb-0"><%= item.deskripsi %></p>
+                            <% if (item.done) { %>
+                                <span class="badge">Selesai</span>
+                            <% } %>
+                        </div>
+                        
+                        <div>
+                            <% if (item.done) { %>
+                                <!-- Tombol Undone -->
+                                <form action="todos/undone/<%= item.id_todo %>" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-warning btn-action" title="Tandai Belum Selesai">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                </form>
+                            <% } else { %>
+                                <!-- Tombol Done -->
+                                <form action="todos/done/<%= item.id_todo %>" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-success btn-action" title="Tandai Selesai">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                            <% } %>
+
+                            <!-- Tombol Edit -->
+                            <button class="btn btn-sm btn-primary btn-action" 
+                                    data-toggle="modal" 
+                                    data-target="#editTodoModal"
+                                    data-id="<%= item.id_todo %>"
+                                    data-title="<%= item.judul %>"
+                                    data-description="<%= item.deskripsi %>"
+                                    title="Edit Todo">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
+                            <!-- Tombol Hapus -->
+                            <form action="todos/delete/<%= item.id_todo %>" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus todo ini?');">
+                                <button type="submit" class="btn btn-sm btn-danger btn-action" title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Todo -->
+    <div class="modal fade" id="addTodoModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah To-Do Baru</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <form action="/todos/add" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label style="color: black;">Judul Todo</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label style="color: black;">Deskripsi</label>
+                            <textarea name="description" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Todo -->
+    <div class="modal fade" id="editTodoModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit To-Do</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <form action="/todos/edit" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="editTodoId">
+                        <div class="form-group">
+                            <label style="color: black;">Judul To-Do</label>
+                            <input type="text" name="title" id="editTodoTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label style="color: black;">Deskripsi</label>
+                            <textarea name="description" id="editTodoDescription" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS dan dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="/css/todo.css" rel="stylesheet">
+    
+    <script>
+        // Script untuk mengisi modal edit
+        $('#editTodoModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            const id = button.data('id');
+            const title = button.data('title');
+            const description = button.data('description');
+
+            const modal = $(this);
+            modal.find('#editTodoId').val(id);
+            modal.find('#editTodoTitle').val(title);
+            modal.find('#editTodoDescription').val(description);
+        });
+    </script>
+</main>
+
