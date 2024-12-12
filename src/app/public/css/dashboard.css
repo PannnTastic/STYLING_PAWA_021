@@ -1,0 +1,190 @@
+/* Latar belakang dengan gradien */
+body {
+    background: rgb(27, 27, 51);
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    color: #fff; /* Warna teks default menjadi putih */
+    min-height:fit-content; 
+    flex-grow: 1; 
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.card img {
+    width: 100%;           /* Mengisi lebar card */
+    height: 200px;         /* Menentukan tinggi gambar */
+    object-fit: cover;     /* Mengisi area gambar tanpa distorsi */
+}
+
+
+/* Struktur flexbox untuk memastikan konten diatur dengan benar */
+.d-flex.flex-column {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Tinggi minimum mencakup seluruh viewport */
+}
+
+/* Main konten akan mengisi ruang yang tersedia */
+main.flex-fill {
+    flex: 1;
+}
+
+main.container {
+    margin-top: 5rem;
+}
+
+main .text-center h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+main .text-center p.lead {
+    font-size: 1.25rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Card dengan desain lebih modern */
+main .card {
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.9); /* Warna transparan dengan efek kaca */
+    color: #333;
+}
+
+main .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+main .card img.card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+main .card:hover img.card-img-top {
+    transform: scale(1.1);
+}
+
+main .card .card-body h3.card-title, 
+main .card .card-body h5.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+main .card .card-body p.card-text {
+    font-size: 1rem;
+}
+
+/* Baris kartu */
+main .row {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+main .row .col-md-6 {
+    margin-bottom: 2rem;
+}
+
+/* Animasi teks */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+footer {
+    background-color: #f8f9fa; /* Warna latar belakang footer */
+    color: #6c757d; /* Warna teks muted */
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid #dee2e6; /* Garis tipis di atas footer */
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0;
+    letter-spacing: 0.5px; /* Memberikan sedikit spasi pada teks */
+    font-family: 'Arial', sans-serif;
+}
+
+footer a {
+    color: #007bff; /* Warna biru untuk tautan */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline; /* Teks bergaris bawah saat hover */
+}
+
+/* Navbar Styling */
+/* Navbar Styling with Solid Background */
+.custom-navbar {
+    background-color: #003366; /* Warna biru gelap */
+    color: white;
+}
+
+.custom-navbar .navbar-brand img {
+    border-radius: 50%; /* Membuat logo tetap berbentuk lingkaran */
+    border: 2px solid white; /* Border putih di sekitar logo */
+}
+
+.custom-navbar .navbar-nav .nav-link {
+    color: white; /* Warna teks putih */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.custom-navbar .navbar-nav .nav-link.active {
+    color: #ffd700; /* Warna emas untuk tautan aktif */
+}
+
+.custom-navbar .navbar-nav .nav-link:hover {
+    color: #ffdd57; /* Warna hover kuning lembut */
+    transform: translateY(-2px); /* Efek hover naik */
+}
+
+.custom-navbar .btn.custom-btn {
+    background-color: white; /* Warna tombol putih */
+    color: #003366; /* Warna teks biru gelap */
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-navbar .btn.custom-btn:hover {
+    background-color: #ffd700; /* Warna hover emas */
+    color: white; /* Teks berubah menjadi putih */
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); /* Efek bayangan hover */
+}
+
