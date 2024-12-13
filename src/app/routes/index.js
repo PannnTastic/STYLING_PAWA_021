@@ -16,7 +16,6 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-console.log('D:\KULIAH\SMT3 (tapi ada 2 matkul smt 5)\PAW (SMT5)\STYLING_PAWA_021\src\app\public')
 app.use(expressejslayouts);
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.static(path.join('D:/KULIAH/SMT3 (tapi ada 2 matkul smt 5)/PAW (SMT5)/STYLING_PAWA_021/src/app/public')));
